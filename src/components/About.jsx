@@ -24,15 +24,27 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p>
-              I am a 3rd-year Computer Science student passionate about building
-              intelligent systems. My focus is on{" "}
-              <strong>Full-Stack Development</strong> and{" "}
-              <strong>Machine Learning</strong>.
+              I'm currently seeking my{" "}
+              <strong>Bachelor's degree in Computer Science Engineering</strong>
+              . My journey began in 10th grade with a dream of working in the IT
+              field.
             </p>
             <p>
-              I have experience working with Django, APIs, and integrating ML
-              models into web applications. I love blending code with creativity
-              to build seamless user experiences.
+              After entering college, I discovered a passion for{" "}
+              <strong>Machine Learning</strong> and started mastering Python.
+              This led to a 21-day internship at "Virtual Tech Services," where
+              I applied algorithms to real-world problems and built a "Weather
+              Classification" project.
+            </p>
+            <p>
+              Now, I'm expanding my horizons to become a{" "}
+              <strong>Full Stack Developer</strong>, mastering the MERN stack
+              while keeping my ML roots strong. In my free time, I create art to
+              stay focused and creative.
+            </p>
+            <p>
+              Open to collaborations in Full Stack and ML—let's explore new
+              origins together!
             </p>
           </motion.div>
 
@@ -44,30 +56,27 @@ const About = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="timeline-item">
-              <span className="year">2024</span>
+              <span className="year">Start</span>
               <div className="content">
-                <h3>ML Internship</h3>
+                <h3>The Dream</h3>
+                <p>Ignited passion for IT in 10th grade.</p>
+              </div>
+            </div>
+            <div className="timeline-item">
+              <span className="year">College</span>
+              <div className="content">
+                <h3>Machine Learning</h3>
                 <p>
-                  Gained hands-on experience in training models and data
-                  analysis.
+                  Learned Python & completed internship at Virtual Tech
+                  Services.
                 </p>
               </div>
             </div>
             <div className="timeline-item">
-              <span className="year">2025</span>
+              <span className="year">Now</span>
               <div className="content">
-                <h3>Full-Stack Projects</h3>
-                <p>Developed scalable web apps using MERN stack and Django.</p>
-              </div>
-            </div>
-            <div className="timeline-item">
-              <span className="year">2026</span>
-              <div className="content">
-                <h3>Future Goals</h3>
-                <p>
-                  Aiming to contribute to open-source and build AI-driven SaaS
-                  products.
-                </p>
+                <h3>Full Stack Dev</h3>
+                <p>Building web apps and integrating AI.</p>
               </div>
             </div>
           </motion.div>
