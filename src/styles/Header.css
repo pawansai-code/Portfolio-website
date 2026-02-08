@@ -40,18 +40,22 @@
   gap: 2rem;
 }
 
-.nav a {
+.nav a,
+.nav .nav-link-span {
   font-weight: 500;
   cursor: pointer;
   position: relative;
   transition: color 0.3s;
+  color: var(--text-color);
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav .nav-link-span:hover {
   color: var(--primary-color);
 }
 
-.nav a::after {
+.nav a::after,
+.nav .nav-link-span::after {
   content: '';
   position: absolute;
   width: 0;
@@ -62,7 +66,8 @@
   transition: width 0.3s;
 }
 
-.nav a:hover::after {
+.nav a:hover::after,
+.nav .nav-link-span:hover::after {
   width: 100%;
 }
 

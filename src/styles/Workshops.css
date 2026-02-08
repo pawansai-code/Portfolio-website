@@ -1,0 +1,155 @@
+.workshops-page {
+  padding: 6rem 0;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.workshops-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.workshops-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.workshops-header p {
+  color: var(--text-secondary);
+}
+
+.workshops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.workshop-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.workshop-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--primary-color);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+}
+
+.workshop-image-container {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.workshop-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.workshop-card:hover .workshop-image-container img {
+  transform: scale(1.15);
+}
+
+.workshop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.workshop-card:hover .workshop-overlay {
+  opacity: 0.8;
+}
+
+.workshop-content {
+  padding: 1.5rem;
+  position: relative;
+}
+
+.workshop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.workshop-title {
+  font-size: 1.3rem;
+  margin: 0;
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.workshop-date {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  background: rgba(99, 102, 241, 0.1);
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+}
+
+.workshop-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stat-icon {
+  color: var(--primary-color);
+}
+
+.workshop-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.explore-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  border-radius: 10px;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.workshop-card:hover .explore-btn {
+  background: var(--primary-color);
+  color: white;
+}

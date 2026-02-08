@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-scroll";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link as ScrollLink, scroller } from "react-scroll";
 import { toggleTheme } from "../store/themeSlice";
 import "../styles/Header.css";
 
@@ -10,6 +11,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +22,20 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (section) => {
+    setIsMenuOpen(false);
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scroller.scrollTo(section, {
+          smooth: true,
+          duration: 500,
+          offset: -70,
+        });
+      }, 100);
+    }
+  };
 
   const navLinks = [
     { name: "Home", to: "hero" },
@@ -38,17 +55,32 @@ const Header = () => {
           <ul>
             {navLinks.map((link) => (
               <li key={link.name}>
-                <Link
-                  to={link.to}
-                  smooth={true}
-                  duration={500}
-                  offset={-70}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
+                {location.pathname === "/" ? (
+                  <ScrollLink
+                    to={link.to}
+                    smooth={true}
+                    duration={500}
+                    offset={-70}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </ScrollLink>
+                ) : (
+                  <span
+                    onClick={() => handleNavClick(link.to)}
+                    style={{ cursor: "pointer" }}
+                    className="nav-link-span"
+                  >
+                    {link.name}
+                  </span>
+                )}
               </li>
             ))}
+            <li>
+              <Link to="/blog" onClick={() => setIsMenuOpen(false)}>
+                Blog
+              </Link>
+            </li>
           </ul>
           <a
             href="#"

@@ -57,7 +57,7 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2>Technical Arsenal</h2>
+          <h2>Technical Skills</h2>
           <p>Technologies I use to build robust applications.</p>
         </motion.div>
       </div>

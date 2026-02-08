@@ -57,8 +57,11 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
+            style={{ fontSize: "1.2rem", lineHeight: "1.6" }}
           >
-            Full-Stack Developer | MERN STACK ENTHUSIAST | ML Enthusiast
+            Aspiring Full Stack Developer | Full Stack Developer Intern @ Social
+            Tek | Python & Java | UI/UX Designer | Passionate About Art &
+            Technology | Pencil Sketch Artist
           </motion.h3>
           <motion.p
             className="intro"
