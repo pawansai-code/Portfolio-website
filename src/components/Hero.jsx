@@ -5,7 +5,7 @@ import profileImg from "../assets/profile pic.jpeg";
 import "../styles/Hero.css";
 
 const Hero = () => {
-  const letters = "PAWAN SAI G".split("");
+  const letters = "PAWANSAI G".split("");
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,7 +47,7 @@ const Hero = () => {
           >
             {letters.map((char, index) => (
               <motion.span key={index} variants={letterVariants}>
-                {char}
+                {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
           </motion.h1>
