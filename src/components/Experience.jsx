@@ -1,8 +1,21 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
 import { FaBriefcase } from "react-icons/fa";
 import "../styles/Experience.css";
 
 const Experience = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center start"],
+  });
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   const experiences = [
     {
       company: "Tech Solutions Inc.",
@@ -27,7 +40,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="experience">
+    <section id="experience" className="experience" ref={ref}>
       <div className="container">
         <motion.div
           className="section-title"
@@ -40,6 +53,7 @@ const Experience = () => {
         </motion.div>
 
         <div className="experience-list">
+          <motion.div className="timeline-line" style={{ scaleY }} />
           {experiences.map((exp, index) => (
             <motion.div
               key={index}

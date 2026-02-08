@@ -16,9 +16,7 @@
   padding: 0.8rem 2rem;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;

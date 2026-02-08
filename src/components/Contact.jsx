@@ -71,14 +71,14 @@ const Contact = () => {
 
             <div className="social-links">
               <a
-                href="https://linkedin.com/in/pawansaig"
+                href="https://linkedin.com/in/pawansai-g/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaLinkedin />
               </a>
               <a
-                href="https://github.com/pawansaig"
+                href="https://github.com/pawansai-code"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -97,7 +97,6 @@ const Contact = () => {
             {!submitted ? (
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
-                  <label htmlFor="name">Name</label>
                   <input
                     type="text"
                     id="name"
@@ -105,11 +104,11 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="Your Name"
+                    placeholder=" "
                   />
+                  <label htmlFor="name">Name</label>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email</label>
                   <input
                     type="email"
                     id="email"
@@ -117,20 +116,21 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="Your Email"
+                    placeholder=" "
                   />
+                  <label htmlFor="email">Email</label>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="message">Message</label>
                   <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Your Message"
+                    placeholder=" "
                     rows="5"
                   ></textarea>
+                  <label htmlFor="message">Message</label>
                 </div>
                 <button type="submit" className="submit-btn">
                   Send Message <FaPaperPlane />

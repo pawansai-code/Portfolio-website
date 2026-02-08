@@ -32,7 +32,12 @@ const Creative = () => {
               Beyond coding, I express my creativity through art. Explore my
               sketches, paintings, and digital art collection.
             </p>
-            <a href="#" className="view-gallery-btn">
+            <a
+              href="https://art-gallery-blond-five.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="view-gallery-btn"
+            >
               Visit Gallery <FaExternalLinkAlt />
             </a>
           </div>

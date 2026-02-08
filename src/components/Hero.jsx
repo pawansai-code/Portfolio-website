@@ -4,8 +4,24 @@ import { Link } from "react-scroll";
 import "../styles/Hero.css";
 
 const Hero = () => {
+  const letters = "PAWAN SAI G".split("");
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.5 },
+    },
+  };
+
+  const letterVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="hero" className="hero">
+      <div className="hero-bg-animation"></div>
       <div className="container hero-container">
         <motion.div
           className="hero-content"
@@ -13,32 +29,72 @@ const Hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="greeting">Hi, I'm</h2>
-          <h1 className="name">PAWAN SAI G</h1>
-          <h3 className="subheading">
+          <motion.h2
+            className="greeting"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            Hi, I'm
+          </motion.h2>
+
+          <motion.h1
+            className="name"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {letters.map((char, index) => (
+              <motion.span key={index} variants={letterVariants}>
+                {char}
+              </motion.span>
+            ))}
+          </motion.h1>
+
+          <motion.h3
+            className="subheading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+          >
             Full-Stack Developer | MERN STACK ENTHUSIAST | ML Enthusiast
-          </h3>
-          <p className="intro">
+          </motion.h3>
+          <motion.p
+            className="intro"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 1 }}
+          >
             I build intelligent, scalable web applications and AI-powered
             systems with clean architecture and creative UI.
-          </p>
+          </motion.p>
 
-          <div className="cta-buttons">
+          <motion.div
+            className="cta-buttons"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.2 }}
+          >
             <Link to="projects" smooth={true} duration={500} offset={-70}>
               <button className="btn primary-btn">View Projects</button>
             </Link>
-          </div>
+          </motion.div>
 
-          <div className="socials">
+          <motion.div
+            className="socials"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.5 }}
+          >
             <a
-              href="https://github.com/pawansaig"
+              href="https://github.com/pawansai-code"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaGithub />
             </a>
             <a
-              href="https://linkedin.com/in/pawansaig"
+              href="https://linkedin.com/in/pawansai-g/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -47,14 +103,14 @@ const Hero = () => {
             <a href="mailto:pawangopi2006@gmail.com">
               <FaEnvelope />
             </a>
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
           className="hero-image"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.5, type: "spring" }}
         >
           <div className="img-wrapper">
             {/* Placeholder for now, user needs to add real image */}

@@ -26,14 +26,14 @@ const Footer = () => {
 
           <div className="footer-socials">
             <a
-              href="https://github.com/pawansaig"
+              href="https://github.com/pawansai-code"
               target="_blank"
               rel="noopener noreferrer"
             >
               <FaGithub />
             </a>
             <a
-              href="https://linkedin.com/in/pawansaig"
+              href="https://linkedin.com/in/pawansai-g/"
               target="_blank"
               rel="noopener noreferrer"
             >

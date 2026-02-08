@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
-      <div className="container">
+      <div className="container header-content">
         <div className="logo">PAWAN SAI G</div>
 
         <nav className={`nav ${isMenuOpen ? "open" : ""}`}>
@@ -50,6 +50,13 @@ const Header = () => {
               </li>
             ))}
           </ul>
+          <a
+            href="#"
+            className="resume-btn"
+            onClick={(e) => e.preventDefault()}
+          >
+            Resume
+          </a>
         </nav>
 
         <div className="actions">

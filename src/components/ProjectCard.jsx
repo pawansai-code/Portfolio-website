@@ -1,21 +1,66 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import "../styles/Projects.css"; // Shared styles
 
 const ProjectCard = ({ project, index }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(
+    mouseYSpring,
+    [-0.5, 0.5],
+    ["17.5deg", "-17.5deg"],
+  );
+  const rotateY = useTransform(
+    mouseXSpring,
+    [-0.5, 0.5],
+    ["-17.5deg", "17.5deg"],
+  );
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <motion.div
       className="project-card"
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
     >
-      <div className="project-image">
+      <div className="project-image" style={{ transform: "translateZ(50px)" }}>
         {/* Placeholder for project image */}
         <div className="img-placeholder">{project.title} Image</div>
       </div>
-      <div className="project-info">
+      <div className="project-info" style={{ transform: "translateZ(20px)" }}>
         <h3>{project.title}</h3>
         <p className="role">{project.role}</p>
         <p className="description">{project.description}</p>
@@ -27,10 +72,6 @@ const ProjectCard = ({ project, index }) => {
             </span>
           ))}
         </div>
-
-        <p className="role">
-          <strong>Role:</strong> {project.role}
-        </p>
 
         <div className="project-links">
           {project.demo && (

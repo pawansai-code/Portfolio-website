@@ -1,74 +1,128 @@
-.skills {
-  padding: 6rem 0;
-  background-color: var(--card-bg); /* Alternate background */
+.skills-section {
+    padding: 6rem 0;
+    overflow: hidden;
+    background: var(--bg-color);
+    position: relative;
 }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+.skills-section .section-title {
+    margin-bottom: 4rem;
+    text-align: center;
 }
 
-.skill-card {
-  background: var(--bg-color);
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-align: center;
-  border: 1px solid var(--border-color);
+.skills-section h2 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
 }
 
-.skill-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary-color);
+.skills-section p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
 }
 
-.skill-icon {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+.skills-marquee-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
 }
 
-.skill-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
+.skills-marquee-wrapper::before,
+.skills-marquee-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
 }
 
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
+.skills-marquee-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-color), transparent);
 }
 
-.skill-tag {
-  background: rgba(59, 130, 246, 0.1); /* Primary color low opacity */
-  color: var(--primary-color);
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
+.skills-marquee-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-color), transparent);
 }
 
-.skill-tag:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: scale(1.05);
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 2rem;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-/* Dark mode tweaks for tags if needed */
-[data-theme='dark'] .skill-tag {
-    background: rgba(96, 165, 250, 0.15); 
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    min-width: 100%;
 }
-[data-theme='dark'] .skill-tag:hover {
+
+.marquee-content.left {
+    animation: scroll-left linear infinite;
+}
+
+.marquee-content.right {
+    animation: scroll-right linear infinite;
+}
+
+@keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+@keyframes scroll-right {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.skill-pill {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-pill:hover {
     background: var(--primary-color);
-    color: #0f172a;
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* Pause animation on hover for better UX */
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .skill-pill {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .skills-marquee-wrapper {
+        gap: 2rem;
+    }
 }
