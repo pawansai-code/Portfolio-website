@@ -5,29 +5,29 @@ import ProjectCard from "./ProjectCard";
 const Projects = () => {
   const projects = [
     {
-      title: "AI Food Spoilage Detection",
+      title: "Animal Adoption and Welfare System",
       description:
-        "Built a MobileNet-based ML model integrated with Django backend to detect food freshness from images.",
-      tech: ["Python", "Django", "TensorFlow", "React"],
-      role: "Model training, API integration, backend logic",
-      github: "https://github.com/pawansaig", // Placeholder
+        "Developed and integrated a Groq API-powered chatbot using HTML, CSS, JavaScript, and Django to assist users with adoption-related queries. Implemented backend routing and user input handling using Django. Contributed to UI/UX design by creating design references and wireframes in Figma.",
+      tech: ["HTML", "CSS", "JavaScript", "Django", "Groq API", "Figma"],
+      role: "Full Stack Developer",
+      github: "https://github.com/pawansai-code",
       demo: null,
     },
     {
-      title: "E-Commerce Platform",
+      title: "Drone-based Women Safety Analysis",
       description:
-        "A full-featured e-commerce application with cart, payment gateway, and user authentication.",
-      tech: ["MERN Stack", "Redux", "Stripe"],
-      role: "Full Stack Development",
-      github: "https://github.com/pawansaig",
-      demo: "https://example.com",
+        "Labeled aerial image datasets using Roboflow for gender detection from drone footage. Assisted in training a gender classification model using a MobileNetV2 pre-trained architecture. Supported dataset preparation, model tuning, and research activities.",
+      tech: ["Roboflow", "MobileNetV2", "Python", "Machine Learning"],
+      role: "ML Researcher / Data Analysis",
+      github: "https://github.com/pawansai-code",
+      demo: null,
     },
     {
-      title: "Smart Portfolio",
+      title: "Mini Projects Collection",
       description:
-        "A responsive portfolio website with dark mode, animations, and clean UI.",
-      tech: ["React", "Vite", "Framer Motion"],
-      role: "Frontend Development",
+        "Developed over 5 mini Python projects including an AI chatbot using Groq API, MADLIB story generator, and number guessing game. Created 5+ frontend clones like Netflix and YouTube homepages.",
+      tech: ["Python", "Groq API", "HTML", "CSS", "JavaScript"],
+      role: "Developer",
       github: "https://github.com/pawansaig",
       demo: null,
     },

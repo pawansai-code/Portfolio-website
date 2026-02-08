@@ -35,35 +35,16 @@ const MarqueeRow = ({ items, direction = "left", speed = 20 }) => (
 
 const Skills = () => {
   const skills = {
-    row1: [
-      "React",
-      "Redux",
-      "JavaScript",
+    row1: ["Python", "C", "Java", "Django", "Node.js", "SQL", "MongoDB"],
+    row2: ["Pandas", "NumPy", "Matplotlib", "Figma", "Canva", "Wireframing"],
+    row3: [
       "HTML5",
       "CSS3",
-      "Tailwind",
-      "Framer Motion",
-      "TypeScript",
-    ],
-    row2: [
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "PostgreSQL",
-      "Python",
-      "Django",
-      "REST APIs",
-      "GraphQL",
-    ],
-    row3: [
+      "JavaScript",
+      "React.js",
+      "Bootstrap 5",
       "Git",
       "GitHub",
-      "Docker",
-      "AWS",
-      "Machine Learning",
-      "TensorFlow",
-      "Keras",
-      "Scikit-learn",
     ],
   };
 
