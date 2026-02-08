@@ -114,8 +114,22 @@ const Hero = () => {
         >
           <div className="img-wrapper">
             {/* Placeholder for now, user needs to add real image */}
-            <div className="placeholder-img">Profile Photo</div>
-            {/* <img src={profileImg} alt="Pawan Sai G" /> */}
+            {/* Placeholder until user adds the image */}
+            <img
+              src="/profile.png"
+              alt="Pawan Sai G"
+              className="profile-img"
+              onError={(e) => {
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+            <div
+              className="placeholder-text"
+              style={{ display: "none", position: "absolute", color: "white" }}
+            >
+              Profile
+            </div>
           </div>
         </motion.div>
       </div>
