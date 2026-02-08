@@ -1,0 +1,75 @@
+:root {
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
+  --text-secondary: #475569;
+  --primary-color: #3b82f6; /* Blue-500 */
+  --secondary-color: #64748b;
+  --card-bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --accent-color: #8b5cf6; /* Violet-500 */
+  --border-color: #e2e8f0;
+  
+  --font-main: 'Inter', system-ui, sans-serif;
+  --font-logo: 'Dancing Script', cursive; /* Example handwritten font */
+}
+
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --text-secondary: #94a3b8;
+  --primary-color: #60a5fa; /* Blue-400 */
+  --secondary-color: #94a3b8;
+  --card-bg: #1e293b;
+  --nav-bg: rgba(15, 23, 42, 0.8);
+  --accent-color: #a78bfa; /* Violet-400 */
+  --border-color: #334155;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
