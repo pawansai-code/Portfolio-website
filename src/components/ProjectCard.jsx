@@ -17,6 +17,7 @@ const ProjectCard = ({ project, index }) => {
       </div>
       <div className="project-info">
         <h3>{project.title}</h3>
+        <p className="role">{project.role}</p>
         <p className="description">{project.description}</p>
 
         <div className="tech-stack">

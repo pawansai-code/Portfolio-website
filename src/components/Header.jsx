@@ -50,7 +50,6 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <button className="resume-btn">Resume</button>
         </nav>
 
         <div className="actions">
