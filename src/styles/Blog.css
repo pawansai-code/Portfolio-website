@@ -99,6 +99,23 @@
   padding-top: 1rem;
 }
 
+.blog-card.expanded {
+  grid-column: 1 / -1;
+  transform: none !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.blog-full-content {
+  margin-top: 1rem;
+  color: var(--text-color);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.blog-full-content p {
+  margin-bottom: 1.2rem;
+}
+
 .read-more {
   color: var(--primary-color);
   font-weight: 600;
@@ -107,9 +124,17 @@
   gap: 0.4rem;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: gap 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.1);
 }
 
 .read-more:hover {
+  background: rgba(99, 102, 241, 0.2);
   gap: 0.8rem;
+}
+
+.blog-text-container {
+  overflow: hidden;
 }

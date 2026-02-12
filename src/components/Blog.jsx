@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import "../styles/Blog.css";
 
@@ -6,6 +7,12 @@ import "../styles/Blog.css";
 import blogImg from "../assets/blog 1 .jpg";
 
 const Blog = () => {
+  const [expandedId, setExpandedId] = useState(null);
+
+  const toggleExpand = (id) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   const blogs = [
     {
       id: 1,
@@ -66,33 +73,57 @@ Be patient with yourself. Keep trying. Time will take care of the rest.`,
 
         {/* Blog Grid with Animation */}
         <div className="blog-grid" style={{ justifyContent: "center" }}>
-          {/* Added style to center single blog pos if needed, though grid usually handles it */}
-          {blogs.map((blog, index) => (
-            <motion.article
-              key={blog.id}
-              className="blog-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="blog-image">
-                <img src={blog.image} alt={blog.title} />
-              </div>
-              <div className="blog-content">
-                <div className="blog-meta">
-                  <span className="date">{blog.date}</span>
+          {blogs.map((blog, index) => {
+            const isExpanded = expandedId === blog.id;
+            return (
+              <motion.article
+                key={blog.id}
+                className={`blog-card ${isExpanded ? "expanded" : ""}`}
+                layout
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="blog-image">
+                  <img src={blog.image} alt={blog.title} />
                 </div>
-                <h3 className="blog-title">{blog.title}</h3>
-                <p className="blog-excerpt">{blog.excerpt}</p>
-                <div className="blog-footer">
-                  <span className="read-more">
-                    Read Article <FaArrowRight />
-                  </span>
+                <div className="blog-content">
+                  <div className="blog-meta">
+                    <span className="date">{blog.date}</span>
+                  </div>
+                  <h3 className="blog-title">{blog.title}</h3>
+                  <motion.div layout className="blog-text-container">
+                    {isExpanded ? (
+                      <div className="blog-full-content">
+                        {blog.fullContent.split("\n").map((line, i) => (
+                          <p key={i}>{line || <br />}</p>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="blog-excerpt">{blog.excerpt}</p>
+                    )}
+                  </motion.div>
+                  <div className="blog-footer">
+                    <span
+                      className="read-more"
+                      onClick={() => toggleExpand(blog.id)}
+                    >
+                      {isExpanded ? "Show Less" : "Read Article"}{" "}
+                      <FaArrowRight
+                        style={{
+                          transform: isExpanded
+                            ? "rotate(-90deg)"
+                            : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

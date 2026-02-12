@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Background from "./components/Background";
 import Blog from "./components/Blog";
 import Hackathons from "./components/Hackathons";
 import Header from "./components/Header";
@@ -18,6 +19,7 @@ function App() {
   return (
     <div className="app-container">
       <Header />
+      <Background />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/skill/:skillName" element={<SkillProjects />} />
