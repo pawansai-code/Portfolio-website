@@ -3,6 +3,7 @@ import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, scroller } from "react-scroll";
+import resumePdf from "../assets/Resume/pawansai_resume (4).pdf";
 import { toggleTheme } from "../store/themeSlice";
 import "../styles/Header.css";
 
@@ -83,9 +84,10 @@ const Header = () => {
             </li>
           </ul>
           <a
-            href="#"
+            href={resumePdf}
+            target="_blank"
+            rel="noopener noreferrer"
             className="resume-btn"
-            onClick={(e) => e.preventDefault()}
           >
             Resume
           </a>
