@@ -128,6 +128,10 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .actions {
+    margin-right: 12px;
+  }
+
   .nav {
     position: fixed;
     top: 70px;
