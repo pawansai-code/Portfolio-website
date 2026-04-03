@@ -126,3 +126,28 @@
         gap: 2rem;
     }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+    .skills-section {
+        padding: 4rem 0;
+    }
+
+    .skills-section h2 {
+        font-size: 1.9rem;
+    }
+
+    .skills-marquee-wrapper {
+        gap: 1.5rem;
+    }
+
+    .skills-marquee-wrapper::before,
+    .skills-marquee-wrapper::after {
+        width: 60px;        /* narrow fades so pills don't hide too early */
+    }
+
+    .skill-pill {
+        padding: 0.65rem 1.1rem;
+        font-size: 0.9rem;
+    }
+}

@@ -140,3 +140,30 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+    .projects {
+        padding: 4rem 0;
+    }
+
+    .projects-grid {
+        gap: 1.8rem;
+    }
+
+    .project-image {
+        height: 180px;
+    }
+
+    .project-info {
+        padding: 1.25rem;
+    }
+
+    .project-info h3 {
+        font-size: 1.25rem;
+    }
+
+    .description {
+        font-size: 0.92rem;
+    }
+}

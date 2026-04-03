@@ -71,3 +71,37 @@
     text-align: center;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .footer {
+    padding: 2.5rem 0 1.5rem;
+  }
+
+  .footer-brand h2 {
+    font-size: 1.2rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.82rem;
+  }
+
+  .footer-links {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-links a {
+    font-size: 0.9rem;
+  }
+
+  .footer-socials {
+    gap: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    padding-top: 1.5rem;
+  }
+}

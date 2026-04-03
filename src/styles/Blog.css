@@ -135,6 +135,44 @@
   gap: 0.8rem;
 }
 
-.blog-text-container {
-  overflow: hidden;
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .blog-page {
+    padding: 4rem 0;
+  }
+
+  .blog-header h2 {
+    font-size: 1.9rem;
+  }
+
+  .blog-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .blog-image {
+    height: 160px;
+  }
+
+  .blog-title {
+    font-size: 1.1rem;
+  }
+
+  .blog-meta {
+    font-size: 0.78rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .blog-content {
+    padding: 1.1rem;
+  }
+
+  .blog-excerpt {
+    font-size: 0.88rem;
+  }
 }

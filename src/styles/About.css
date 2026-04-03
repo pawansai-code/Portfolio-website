@@ -108,3 +108,30 @@
     gap: 3rem;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .about {
+    padding: 4rem 0;
+  }
+
+  .section-title {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.9rem;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+  }
+
+  .about-content {
+    gap: 2rem;
+  }
+
+  .timeline-item h3 {
+    font-size: 1.05rem;
+  }
+}

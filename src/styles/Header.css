@@ -163,3 +163,33 @@
     display: block;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header.scrolled {
+    padding: 0.6rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .nav {
+    width: 100%;          /* full-width drawer on small phones */
+    top: 60px;
+    height: calc(100vh - 60px);
+    padding: 1.5rem 1rem;
+  }
+
+  .nav ul {
+    gap: 1.2rem;
+  }
+
+  .theme-toggle {
+    font-size: 1rem;
+  }
+}

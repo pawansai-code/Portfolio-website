@@ -153,3 +153,51 @@
   background: var(--primary-color);
   color: white;
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .workshops-page {
+    padding: 4rem 0;
+  }
+
+  .workshops-header h2 {
+    font-size: 1.9rem;
+  }
+
+  .workshops-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .workshops-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    margin-top: 2rem;
+  }
+
+  .workshop-image-container {
+    height: 170px;
+  }
+
+  .workshop-content {
+    padding: 1.1rem;
+  }
+
+  .workshop-title {
+    font-size: 1.1rem;
+  }
+
+  .workshop-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .workshop-desc {
+    font-size: 0.88rem;
+  }
+
+  .explore-btn {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+}

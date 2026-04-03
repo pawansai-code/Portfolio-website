@@ -194,3 +194,48 @@
     justify-content: center;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .hero {
+    padding-top: 70px;
+  }
+
+  .name {
+    font-size: 2.6rem;
+  }
+
+  .greeting {
+    font-size: 1.1rem;
+  }
+
+  .subheading {
+    font-size: 1rem;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+  }
+
+  .img-wrapper {
+    width: 230px;
+    height: 230px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 260px;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .socials {
+    gap: 1rem;
+  }
+}

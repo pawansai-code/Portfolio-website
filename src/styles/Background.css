@@ -69,3 +69,29 @@
     linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .blob-1 {
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    right: -60px;
+  }
+
+  .blob-2 {
+    width: 240px;
+    height: 240px;
+    bottom: -60px;
+    left: -60px;
+  }
+
+  .blob-3 {
+    width: 180px;
+    height: 180px;
+  }
+
+  .blob-container {
+    filter: blur(60px);
+  }
+}

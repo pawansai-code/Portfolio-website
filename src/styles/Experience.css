@@ -151,3 +151,41 @@
     width: 100%;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .experience {
+    padding: 4rem 0;
+  }
+
+  .experience-list::before {
+    left: 14px;
+  }
+
+  .experience-card {
+    padding-left: 38px;
+  }
+
+  .exp-icon {
+    left: 14px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .exp-content {
+    padding: 1rem;
+  }
+
+  .exp-content h3 {
+    font-size: 1.05rem;
+  }
+
+  .exp-content h4 {
+    font-size: 0.95rem;
+  }
+
+  .exp-description li {
+    font-size: 0.88rem;
+  }
+}

@@ -65,3 +65,33 @@
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .creative {
+    padding: 4rem 0;
+  }
+
+  .art-card {
+    padding: 2rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .art-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .art-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .art-card p {
+    font-size: 0.95rem;
+  }
+
+  .view-gallery-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}

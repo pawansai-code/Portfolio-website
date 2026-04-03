@@ -260,3 +260,50 @@
     justify-content: flex-start;
   }
 }
+
+/* ── 576px & below ── */
+@media (max-width: 576px) {
+  .hackathons-page {
+    padding: 4rem 0;
+  }
+
+  .hackathons-header-section h2 {
+    font-size: 1.9rem;
+  }
+
+  .timeline-container {
+    padding: 1rem 0;
+    margin-top: 2rem;
+  }
+
+  .timeline-line {
+    left: 14px;
+  }
+
+  .hackathon-item {
+    margin-left: 34px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hackathon-content {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .hackathon-image {
+    height: 150px;
+  }
+
+  .hackathon-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .hackathon-description {
+    font-size: 0.9rem;
+  }
+
+  .view-more-btn {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.9rem;
+  }
+}
