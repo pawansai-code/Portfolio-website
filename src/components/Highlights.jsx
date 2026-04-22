@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { FaAward, FaChalkboardTeacher, FaLaptopCode } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import fsoCert from "../assets/fullstackopen-cert.png";
 import "../styles/Highlights.css";
 
 const Highlights = () => {
   const certifications = [
+    { name: "Full Stack Open – University of Helsinki - Finland", link: fsoCert },
     "Python for Data Science – NPTEL",
     "Python Essentials I – Cisco Networking Academy",
     "Introduction to JavaScript Certification",
@@ -53,7 +55,22 @@ const Highlights = () => {
             </h3>
             <ul className="cert-list">
               {certifications.map((cert, index) => (
-                <li key={index}>{cert}</li>
+                <li key={index}>
+                  {typeof cert === "string" ? (
+                    cert
+                  ) : cert.link ? (
+                    <a
+                      href={cert.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "inherit", textDecoration: "none", display: "block" }}
+                    >
+                      {cert.name}
+                    </a>
+                  ) : (
+                    cert.name
+                  )}
+                </li>
               ))}
             </ul>
           </motion.div>

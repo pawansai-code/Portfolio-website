@@ -3,7 +3,7 @@ import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, scroller } from "react-scroll";
-import resumePdf from "../assets/Resume/pawansai_resume (4).pdf";
+import resumePdf from "../assets/Resume/PAWAN_SAI_G resume-080.pdf";
 import { toggleTheme } from "../store/themeSlice";
 import "../styles/Header.css";
 
