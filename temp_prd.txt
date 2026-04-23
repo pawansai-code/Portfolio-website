@@ -1,0 +1,413 @@
+EDUVERSE
+PRODUCT REQUIREMENTS DOCUMENT
+PRD — Version 1.0
+Centralized Educational & Interactive Hub
+Document Type
+Product Requirements Document (PRD)
+Version
+1.0 — Initial Release
+Status
+Final Draft
+Project
+Eduverse Platform
+Repository
+eduverseofficial (Active)
+Classification
+Internal / Confidential
+Prepared Date
+April 10, 2026
+Table of Contents
+1. Executive Summary
+Eduverse is a centralized, web-based educational platform engineered to serve as the definitive digital hub for students and academic administrators. The platform unifies five core pillars under a single authenticated, role-aware interface: utility tooling, AI-powered academic assistance, gamified engagement, personal journaling, and real-time community collaboration.
+The platform's design philosophy rests on a fundamental insight: learning is most effective when it is engaging, contextually supported, and immediately rewarding. By co-locating an LLM-powered chatbot (Meta LLaMA 3.3-70B via Groq), gamified chess challenges, an achievement system, a personal journal, and a forthcoming real-time community space, Eduverse creates a self-reinforcing engagement flywheel where each module drives usage of every other.
+Strategic Vision
+Eduverse aspires to become the 'home screen' of a student's academic life — the first application they open in the morning and the last they close at night. Every feature is designed with intentional cross-module synergy: journaling entries unlock achievements, chess victories earn XP, chatbot sessions reinforce study habits, and community connections sustain motivation.
+1.1 Key Differentiators
+Hybrid BaaS + Custom Backend: Firebase handles all authentication and data persistence; a dedicated Express.js backend acts as a secure proxy for Groq AI SDK calls, ensuring zero API key exposure to the client.
+Role-Aware Dual Dashboards: Admin and Student users experience entirely different interfaces, controls, and data views under the same authentication umbrella.
+Gamified Cognition Layer: Chess mechanics (chess.js + react-chessboard) provide scientifically-backed cognitive benefits, tied to an Achievements and XP system that sustains long-term platform engagement.
+Privacy-First AI: The Groq API key never reaches the browser — all AI inference is proxied server-side, satisfying enterprise-grade security requirements.
+Future-Ready Architecture: Socket.io client scaffolding is already installed and the Community component directory exists, enabling Phase 2 real-time messaging with minimal architectural change.
+2. Goals and Objectives
+2.1 Business Goals
+Goal ID
+Goal
+Description
+Success Metric
+BG-01
+Increase Engagement
+Build a sticky platform students return to daily through gamification and utility tools
+DAU/MAU ratio ≥ 0.35 within 6 months
+BG-02
+Reduce Fragmentation
+Consolidate academic utilities into one authenticated hub, replacing disconnected external tools
+≥ 5 tools used per active student/month
+BG-03
+AI-Assisted Learning
+Provide 24/7 contextual academic support via the LLaMA 3.3 powered chatbot
+Chatbot CSAT score ≥ 4.0 / 5.0
+BG-04
+Admin Efficiency
+Equip admins with real-time visibility into platform activity and user management
+Admin reporting task time reduced ≥ 40%
+BG-05
+Community Building
+Launch real-time cohort messaging to reduce academic isolation (Phase 2)
+Community DAU ≥ 25% of total DAU at launch
+2.2 Product Objectives
+Deliver a fully authenticated, role-based platform with persistent auth state across page refreshes via Redux Toolkit + Firebase onAuthStateChanged.
+Achieve sub-200ms AI chatbot first-token latency by leveraging Groq's LPU hardware infrastructure.
+Maintain 100% client-side API key secrecy by routing all third-party SDK calls through the Node/Express backend.
+Achieve WCAG 2.1 Level AA accessibility compliance across all public-facing pages.
+Build a modular Tools Hub architecture allowing new utility tools to be added without routing refactors.
+Ship a gamification system (Achievements + XP) that drives a measurable increase in journal and chess engagement.
+3. Target Audience & User Personas
+3.1 Primary Persona — The Student
+Attribute
+Detail
+Age Range
+15 – 30 years
+Tech Literacy
+Moderate to High — comfortable with web apps, Google sign-in, and chat interfaces
+Primary Device
+Desktop / Laptop (Chrome, Firefox, Edge)
+Session Length
+15 – 45 minutes average per visit
+Core Need
+A single sign-on environment that remembers them and surfaces their personal data (journals, progress, achievements) on every visit
+Primary Pain Point
+Switching between multiple disconnected tools (calculators, note-taking apps, AI chatbots, games) wastes time and fragments focus
+Motivation
+Achievements, XP progress bars, and gamified milestones incentivize consistent platform engagement and academic discipline
+AI Expectation
+Chatbot answers are instant, contextual, and academically appropriate — not generic filler responses
+3.2 Secondary Persona — The Administrator
+Administrators are identified by a privileged email allowlist (e.g., eduverseofficial17@gmail.com) and receive an elevated experience after the same Firebase authentication flow. Admin needs and capabilities:
+Full read access to platform-wide user metrics: registered users, daily/monthly activity, module engagement breakdowns.
+User management: view all registered students, their join date, last active timestamp, email verification status, and provider (Email vs. Google).
+Content moderation controls for the Phase 2 Community messaging module (delete messages, mute/ban users).
+Platform configuration: manage tool visibility, toggle feature flags, publish announcement banners.
+Exportable engagement and usage reports for institutional reporting.
+3.3 Tertiary Stakeholder — Platform Engineers / DevOps
+The engineering team deploying and maintaining the React Vite frontend and Express.js backend. Their requirements directly shape the Non-Functional Requirements and inform the CI/CD pipeline design.
+4. Functional Requirements
+4.1 Authentication & Identity Management
+Technology Basis
+Firebase Authentication — Email/Password provider + Google OAuth 2.0 Provider. Role determination occurs post-authentication via a check of the authenticated user's email against a hardcoded admin allowlist. The resolved role (admin | student) is stored globally in Redux userSlice.
+FR-AUTH-01: User Registration (Signup)
+Users create an account with a valid email and a password meeting minimum requirements: 8+ characters, at least 1 uppercase letter, 1 number.
+On successful registration, Firebase sends a verification email to the provided address.
+Unverified accounts can browse the platform homepage but cannot access the Dashboard, Journal, or Chatbot modules — a persistent banner prompts email verification.
+Google OAuth registration creates a new user profile automatically; email verification is skipped as Google accounts are pre-verified.
+Duplicate email registration displays: 'An account with this email already exists. Try signing in.'
+FR-AUTH-02: User Login
+Email/Password login: Firebase signInWithEmailAndPassword is invoked; on success, onAuthStateChanged fires and populates Redux userSlice.
+Google Sign-In: Firebase signInWithPopup with GoogleAuthProvider. On success, same Redux population flow.
+Failed login attempts display specific, user-friendly messages: 'Incorrect password' vs. 'No account found with this email.'
+After 5 consecutive failed login attempts, the account is temporarily locked for 15 minutes (Firebase built-in protection).
+FR-AUTH-03: Password Recovery
+'Forgot Password' accepts a registered email and triggers Firebase sendPasswordResetEmail.
+The reset email contains a deep-link that routes the user to the dedicated /reset-password page within the SPA.
+The Reset Password form validates that new password and confirm-password fields match before submission.
+Successful reset redirects to /login with a success toast: 'Password updated successfully. Please log in.'
+FR-AUTH-04: Role-Based Access Control (RBAC)
+On auth state resolution, the system checks user.email against the ADMIN_EMAILS constant array.
+admin role: granted access to Admin Dashboard, user management panels, moderation controls, and all student-accessible modules.
+student role: granted access to Student Dashboard, Tools Hub, Funzone, Journal, Chatbot, Achievements, and Community.
+React Router v7 PrivateRoute and AdminRoute guard components enforce RBAC at the routing layer before any content renders.
+Unauthorized direct URL access (e.g., /admin by a student) redirects to /403 with a descriptive message.
+FR-AUTH-05: Session Persistence & Logout
+Firebase Auth persists the session in localStorage (browserLocalPersistence) — users remain logged in across browser restarts.
+On app mount, Redux rehydrates userSlice from the Firebase Auth listener; a loading spinner displays during the ~500ms resolution window.
+Explicit logout calls Firebase signOut() and dispatches a Redux CLEAR_USER action, immediately clearing all local state and redirecting to /login.
+4.2 Dashboard Module
+FR-DASH-01: Student Dashboard
+Personalized welcome header displaying the student's displayName (or email prefix if no display name is set).
+Quick-access widget grid: Recent Journal Entries (last 3), Current Achievement Progress (top 3 in-progress), Pinned Tools, Chatbot shortcut.
+Activity feed: Last 5 platform interactions with timestamp (e.g., 'You wrote a journal entry 2 hours ago').
+Engagement streak counter: consecutive days of platform use (journal entries or chatbot sessions trigger streak continuation).
+XP progress bar showing current total XP and progress toward the next rank/level.
+FR-DASH-02: Admin Dashboard
+Platform KPIs at a glance: Total Registered Users, Users Active Today, Total Journal Entries, Total Chatbot Messages, Total Chess Games Completed.
+User management table: all registered students with columns for Email, Display Name, Join Date, Last Active, Verification Status, Auth Provider.
+Module engagement chart: bar or line chart showing daily usage per module over the last 30 days.
+Broadcast Announcement tool: publish a platform-wide banner message visible to all students on their next session.
+4.3 Tools Hub Module
+Architecture Note
+The Tools Hub is designed as a plugin-style registry. Each tool is a self-contained React component registered in a central tools-manifest.js file. Adding a new tool requires only a single manifest entry — no routing or layout changes are required, enabling rapid feature expansion.
+FR-TOOLS-01: Tools Discovery & Navigation
+The /tools route renders a responsive card grid of all registered tools, each displaying: icon, name, short description, and category badge.
+Tools are filterable by category (e.g., Mathematics, Writing, Science, Productivity, Conversion).
+A real-time search bar performs fuzzy matching on tool name and description keywords.
+Tool cards display a 'New' badge for tools added within the last 14 days.
+FR-TOOLS-02: Individual Tool Experience
+Each tool opens in a dedicated sub-route (/tools/:toolId) rendered within the platform shell (maintaining navigation).
+Tools are code-split and lazy-loaded via React.lazy + Suspense, keeping the initial bundle size minimal.
+Tools can be bookmarked/favorited; favorites persist to Firestore and appear in the Student Dashboard quick-access grid.
+Each tool page has a breadcrumb nav: Home > Tools Hub > [Tool Name].
+4.4 Funzone Module (Chess)
+Technology Basis
+chess.js handles all game logic, move validation, check/checkmate/stalemate detection, and PGN parsing. react-chessboard provides the interactive React board component with drag-and-drop piece movement. Both run entirely client-side — no server-side chess engine is required for standard play.
+FR-FUNZONE-01: Chess Gameplay
+Full interactive chess board rendered via react-chessboard with both drag-and-drop and click-to-move interaction models.
+chess.js validates every move in real-time; illegal moves are rejected with a visual shake animation on the piece.
+Game Mode — Player vs. Player (Hot Seat): two players share the same screen, alternating turns.
+Game Mode — Player vs. Computer: the platform makes randomized legal moves for the opponent (chess.js random-move algorithm), suitable for beginners.
+Game Mode — Puzzle: pre-loaded chess puzzles where the player must find the best move in a given position.
+Move history panel (side panel) displays all moves in SAN notation for the current game.
+Game state detection: check, checkmate, stalemate, 50-move rule draws, and insufficient material draws are auto-detected and announced via a modal dialog.
+Board orientation toggle: students can flip the board to view from Black's perspective.
+FR-FUNZONE-02: Game Persistence & Statistics
+Completed games (win/loss/draw, opponent type, move count, duration) are saved to Firebase Firestore under /users/{uid}/gameHistory/.
+The Student Dashboard Funzone widget surfaces: lifetime W/L/D record, total games played, current win streak.
+Wins in the Funzone contribute to the Achievements module milestone tracking (Chess Novice, Chess Tactician, etc.).
+4.5 Journal Hub Module
+FR-JOURNAL-01: Journal Entry CRUD Operations
+CREATE: A clean text editor (with optional Markdown support) enables writing new entries with a required Title field, body content, and optional comma-separated tags.
+READ: Paginated entry list (10 entries per page) sorted newest-first, with title, date, and tag preview on each card.
+UPDATE: Any entry can be edited in-place; both the entry content and an updatedAt timestamp are persisted to Firestore.
+DELETE: Soft-delete moves entries to a 'Trash' collection; entries are permanently purged after 7 days, allowing accidental deletion recovery.
+FR-JOURNAL-02: Journal Privacy & Data Isolation
+Entries are strictly private — Firestore Security Rules contain an explicit deny for any uid !== entry owner's uid.
+Admin users cannot read individual student journal entries (privacy by design; only aggregate counts are visible on the Admin Dashboard).
+All journal data is stored under /users/{uid}/journal/{entryId} — no cross-user collection structure.
+FR-JOURNAL-03: Streaks & Gamification
+A daily writing streak counter (displayed prominently on the Journal Hub landing screen) tracks consecutive days with at least one entry.
+Streak milestones of 3, 7, 14, and 30 consecutive days automatically trigger corresponding Achievement unlocks.
+A missed day resets the streak to zero; a re-engagement notification is sent (if notifications are enabled): 'Your 7-day streak is at risk! Write an entry today.'
+4.6 AI Chatbot Module
+Technology Basis
+The Groq SDK (groq-sdk npm package) runs the llama-3.3-70b-versatile model server-side. The React frontend sends conversation history to POST /api/chat on the Express backend, which injects a system prompt and proxies the call to Groq. The Groq API key is never exposed to the browser under any circumstance.
+FR-CHAT-01: Conversational Interface
+Full-height chat interface with a scrollable message history view, a multiline text input, and a Send button (also triggered by Shift+Enter).
+AI responses are rendered with Markdown support: bold text, inline code, code blocks with syntax highlighting, ordered and unordered lists.
+An animated typing indicator (three pulsing dots) displays while awaiting the Groq API response, providing instant feedback that the request was received.
+Conversation history is maintained in React component state for the session duration, enabling true multi-turn contextual dialogue.
+'Clear Chat' button resets the conversation history with a confirmation dialog to prevent accidental clearing.
+FR-CHAT-02: Backend Proxy API Contract
+Request: POST /api/chat with Content-Type: application/json and body { messages: [{ role: 'user'|'assistant', content: string }] }.
+The Express backend prepends a system prompt establishing the 'Eduverse Academic Assistant' persona before forwarding to Groq.
+System prompt guidelines: respond helpfully to academic questions, encourage critical thinking, refuse to write complete essays or exam answers for students, maintain a supportive and encouraging tone.
+Response: streamed text/event-stream for perceived performance, with a non-streaming JSON fallback ({ reply: string }) for clients that don't support streaming.
+FR-CHAT-03: Chatbot Access Control & Safety
+The chatbot module is only accessible to authenticated users with a verified email address.
+Rate limiting: maximum 20 requests per minute per IP address on the /api/chat endpoint; excess requests receive a 429 response with a retry-after header.
+Input sanitization on the backend: HTML tags stripped, maximum 2000 characters per message turn enforced.
+The system prompt includes explicit guardrails to decline requests for complete academic assignments, harmful content, and off-platform topics unrelated to learning.
+4.7 Achievements Module
+FR-ACH-01: Achievement Catalog
+ID
+Achievement Name
+Unlock Condition
+XP Awarded
+ACH-001
+First Steps
+Complete first authenticated login to the platform
+50 XP
+ACH-002
+Journal Starter
+Create the very first journal entry
+100 XP
+ACH-003
+3-Day Streak
+Maintain a 3-consecutive-day journaling streak
+150 XP
+ACH-004
+Week Warrior
+Maintain a 7-consecutive-day journaling streak
+300 XP
+ACH-005
+Month Master
+Maintain a 30-consecutive-day journaling streak
+1000 XP
+ACH-006
+Chess Novice
+Win the first chess game (any mode)
+150 XP
+ACH-007
+Chess Tactician
+Win 10 chess games
+500 XP
+ACH-008
+Chess Champion
+Win 50 chess games
+1500 XP
+ACH-009
+AI Explorer
+Send 10 messages to the Eduverse AI chatbot
+200 XP
+ACH-010
+Tool Curious
+Use 3 different Tools Hub utilities
+150 XP
+ACH-011
+Tool Master
+Use 5 different Tools Hub utilities
+250 XP
+ACH-012
+Community Pioneer
+Send the first message in the Community chat (Phase 2)
+200 XP
+FR-ACH-02: Achievement Display & Progress
+Achievements page (/achievements) displays a grid of all achievements, with locked achievements shown as greyed-out cards with a lock icon.
+Each unlocked achievement shows its name, description, unlock date, and XP awarded.
+In-progress achievements (e.g., '7 of 10 chess wins') display a progress bar.
+XP total is displayed in the navigation bar as a persistent global element.
+4.8 Settings Module
+FR-SETTINGS-01: Profile Settings
+Update display name: changes are saved to Firebase Auth profile and Firestore user document simultaneously.
+Upload or change profile picture: image uploaded to Firebase Storage; URL updated in Firebase Auth and Firestore.
+Change password: requires current password verification before accepting a new password.
+FR-SETTINGS-02: Preferences
+Notification preferences: toggle daily journaling reminders (browser push notification if supported).
+Appearance: Light / Dark mode toggle (preference persisted to Firestore).
+Accessibility: toggle to disable GSAP animations platform-wide (respects prefers-reduced-motion by default).
+4.9 Community Module (Phase 2 — Planned)
+Implementation Status
+Socket.io client (socket.io-client) is already installed in package.json. The src/Components/Community/ directory scaffolding exists. The Express.js backend requires Socket.io server integration. Firebase Firestore will persist message history. This section defines Phase 2 target functional requirements.
+FR-COMM-01: Channel-Based Real-Time Messaging
+Students join subject-based public channels: #general, #mathematics, #science, #writing, #study-help, and admin-created custom channels.
+Messages are broadcast in real-time to all connected channel members via Socket.io websocket events.
+Message history (last 100 messages per channel) is persisted to Firestore and loaded on channel join for users connecting after messages were sent.
+Online presence indicators show how many users are currently connected to each channel.
+FR-COMM-02: Messaging Features
+Markdown support in messages: bold, italic, inline code, code blocks.
+@mention: typing @username shows a suggestion dropdown; mentioned users receive a notification badge.
+Message reactions: emoji reactions (thumbs up, heart, checkmark, lightbulb) on any message.
+FR-COMM-03: Moderation
+Admin users access a moderation panel within the community view: delete any message, mute a user (15 min / 1 hour / permanent), ban a user from a specific channel.
+Automated profanity filtering on all outbound messages using a server-side word filter before broadcast.
+Report Message: any user can flag a message; flagged messages appear in the Admin Moderation Queue.
+5. Non-Functional Requirements
+5.1 Performance Requirements
+NFR ID
+Metric
+Target
+Measurement Method
+NFR-P01
+Largest Contentful Paint (LCP)
+< 2.5 seconds on 4G
+Lighthouse CI / Web Vitals
+NFR-P02
+AI Chatbot First-Token Latency
+< 200ms (Groq LPU advantage)
+Backend response timing logs
+NFR-P03
+SPA Route Transition Time
+< 100ms perceived
+React Profiler / DevTools
+NFR-P04
+Firebase Auth State Resolution on Mount
+< 500ms
+Performance.measure() instrumentation
+NFR-P05
+Chess Move Validation (chess.js)
+< 16ms (within single frame)
+console.time() benchmarks
+NFR-P06
+Firestore Journal Entry Save
+< 800ms round-trip
+Firestore SDK latency logging
+NFR-P07
+Vite Production Bundle (main chunk)
+< 500KB gzipped
+Vite build analyzer (rollup-plugin-visualizer)
+NFR-P08
+Cumulative Layout Shift (CLS)
+< 0.1
+Lighthouse CI / Web Vitals
+5.2 Scalability
+Firebase Firestore auto-scales horizontally with no manual capacity planning up to millions of users; read/write throughput scales automatically.
+The Express.js Groq proxy is stateless — it can be horizontally scaled behind a load balancer. A minimum of 2 instances are recommended for production high availability.
+The React + Vite build is a static asset bundle that can be served from any CDN (Firebase Hosting, Vercel, Netlify) with global edge caching and zero server capacity concerns.
+5.3 Reliability & Availability
+Platform uptime target: 99.5% monthly SLA (Firebase services carry a 99.95% Google SLA; the Express backend targets 99.5%).
+Chatbot graceful degradation: if the Express backend is unreachable, the UI displays 'AI Assistant temporarily unavailable. Please try again shortly.' — no crash, no blank screen.
+Firestore offline support (Firebase SDK's offline persistence) allows the Journal and Tools modules to function with a degraded read-only experience during connectivity loss.
+5.4 Security
+All platform traffic served exclusively over HTTPS; HTTP requests receive a 301 permanent redirect to HTTPS.
+Firebase configuration object (API keys) stored in .env files as VITE_ prefixed variables — never committed to version control (.gitignore enforced).
+Groq API key stored exclusively in the backend .env file. It is never included in any frontend build, never logged, and never returned in any API response.
+Firestore Security Rules enforce per-user data isolation as the primary data access control mechanism.
+React Router route guards (PrivateRoute, AdminRoute) provide UI-layer access control, preventing unauthorized component rendering.
+5.5 Usability & Accessibility
+WCAG 2.1 Level AA compliance is a mandatory release criterion for all modules — no module ships without passing an axe-core accessibility audit.
+Full keyboard navigability for all interactive elements: modals, dropdowns, chess board (arrow keys to navigate squares), and form inputs.
+GSAP animations are automatically disabled when the user's OS prefers-reduced-motion setting is enabled.
+Bootstrap 5's responsive grid ensures full functionality on screens 320px wide and above (mobile-first design).
+All non-semantic interactive elements (icon-only buttons, custom dropdowns) carry descriptive aria-label attributes.
+5.6 Maintainability & Code Quality
+Feature-based folder structure (src/Components/<Feature>/) enables developers to locate and modify any module in isolation.
+ESLint + Prettier configurations are enforced in the CI pipeline; PRs that introduce linting errors are blocked from merging.
+Unit test coverage minimum: 70% across all src/Components/ and src/store/ files (enforced by Jest --coverage threshold configuration).
+Semantic versioning (SemVer) for all releases; CHANGELOG.md updated with every merged PR.
+All environment-specific configuration is externalized via .env files — no hardcoded URLs, keys, or environment identifiers in source code.
+6. Constraints & Assumptions
+6.1 Technical Constraints
+The platform is a Single Page Application — initial JavaScript bundle size directly impacts first-load performance; code splitting is mandatory for all routes.
+Groq LLaMA 3.3-70B is the mandated AI model; switching models requires a backend configuration change only (no frontend changes).
+Firebase free tier (Spark plan) limits: 50,000 reads/day, 20,000 writes/day, 1GB Firestore storage — migration to Blaze (pay-as-you-go) required at scale.
+@xenova/transformers (client-side NLP) requires WebAssembly support — not available in older browsers; feature must be guarded with a capability check.
+6.2 Assumptions
+All target users have access to a modern, evergreen browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+).
+The Groq API maintains its current free/low-cost tier pricing during the platform's initial launch phase.
+The admin email allowlist is a small, static list managed via codebase configuration — a database-driven admin management system is not required for Phase 1.
+Internet connectivity is assumed for all primary platform features; offline support is a best-effort bonus, not a requirement.
+7. Product Roadmap
+Phase
+Milestone
+Key Deliverables
+Target
+Phase 1 — Foundation
+Core Platform Launch
+Auth, Student/Admin Dashboards, Tools Hub, Funzone (Chess), Journal, AI Chatbot, Achievements
+Current / Live
+Phase 2 — Community
+Real-Time Messaging
+Socket.io backend integration, Channel-based chat, Message moderation, @mentions, reactions
+Q3 2025
+Phase 3 — Intelligence
+Enhanced AI
+Personalized chatbot context (Firestore history), AI-powered journal prompts, Study plan generator
+Q4 2025
+Phase 4 — Expansion
+Platform Growth
+Mobile app (React Native), Additional Funzone games (Sudoku, Wordle), Teacher/Mentor role
+Q1–Q2 2026
+8. Glossary
+Term
+Definition
+BaaS
+Backend-as-a-Service — cloud model providing pre-built backend infrastructure (Firebase)
+SPA
+Single Page Application — a web app that dynamically rewrites the current page without full page reloads
+RBAC
+Role-Based Access Control — access restriction based on the authenticated user's assigned role
+LLM
+Large Language Model — AI model trained on vast text corpora; here LLaMA 3.3-70B via Groq
+LPU
+Language Processing Unit — Groq's custom inference chip enabling ultra-low-latency LLM responses
+Redux Slice
+A Redux Toolkit bundle of reducer logic, actions, and selectors for a specific state domain
+Firestore
+Google Cloud's NoSQL document database, accessible directly from the browser via Firebase SDK
+XP
+Experience Points — the gamification currency awarded for completing achievements in Eduverse
+SAN
+Standard Algebraic Notation — the standard system for recording chess moves
+WCAG
+Web Content Accessibility Guidelines — W3C's international web accessibility standards
+HMR
+Hot Module Replacement — Vite feature for instant code updates during development
+DAU/MAU
+Daily Active Users / Monthly Active Users — engagement ratio measuring platform stickiness
+9. Revision History
+Version
+Date
+Author
+Summary of Changes
+1.0
+April 10, 2026
+Eduverse Team
+Initial PRD — full product specification including all Phase 1 modules and Phase 2 community planning
+End of Document — Eduverse PRD v1.0

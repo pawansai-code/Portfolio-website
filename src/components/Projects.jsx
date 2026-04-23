@@ -5,11 +5,20 @@ import ProjectCard from "./ProjectCard";
 const Projects = () => {
   const projects = [
     {
-      title: "Animal Adoption and Welfare System",
+      title: "ENCOM: AI-Driven Gamified Learning and Networking System",
       description:
-        "Developed and integrated a Groq API-powered chatbot using HTML, CSS, JavaScript, and Django to assist users with adoption-related queries. Implemented backend routing and user input handling using Django. Contributed to UI/UX design by creating design references and wireframes in Figma.",
-      tech: ["HTML", "CSS", "JavaScript", "Django", "Groq API", "Figma"],
+        "Developed a comprehensive educational hub integrating a Meta LLaMA 3.3-powered AI assistant via Groq API, gamified cognitive challenges (Chess), and a personal journaling system. Engineered a secure hybrid architecture using Firebase for role-based authentication and real-time data persistence, alongside an Express.js backend for protected AI proxying. Implemented an XP-based achievement system and dual-role dashboards to drive student engagement and administrative efficiency.",
+      tech: ["React.js", "Express.js", "Firebase", "Groq API", "Redux", "Socket.io"],
       role: "Full Stack Developer",
+      github: "https://github.com/pawansai-code",
+      demo: null,
+    },
+    {
+      title: "Smart Crop Advisory System",
+      description:
+        "Developed the frontend using React.js and Redux Toolkit to deliver a highly responsive, user-friendly interface. Engineered distinct functional modules including an AI-powered chatbot, an articles & news feed, real-time market price tracking, a tractor connection hub, and a pest & disease detection interface.",
+      tech: ["React.js", "Redux Toolkit", "JavaScript", "CSS3", "AI Integration"],
+      role: "Frontend Developer",
       github: "https://github.com/pawansai-code",
       demo: null,
     },

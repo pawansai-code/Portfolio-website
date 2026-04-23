@@ -2,51 +2,33 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "../styles/Skills.css";
 
-const MarqueeRow = ({ items, direction = "left", speed = 20 }) => (
-  <div className="marquee-container">
-    <div
-      className={`marquee-content ${direction}`}
-      style={{ animationDuration: `${speed}s` }}
-    >
-      {items.concat(items).map((skill, idx) => (
-        <Link key={idx} to={`/skill/${skill}`} className="skill-pill">
-          {skill}
-        </Link>
-      ))}
-    </div>
-    <div
-      className={`marquee-content ${direction}`}
-      style={{ animationDuration: `${speed}s` }}
-      aria-hidden="true"
-    >
-      {items.concat(items).map((skill, idx) => (
-        <Link
-          key={idx}
-          to={`/skill/${skill}`}
-          className="skill-pill"
-          tabIndex="-1"
-        >
-          {skill}
-        </Link>
-      ))}
-    </div>
-  </div>
-);
-
 const Skills = () => {
-  const skills = {
-    row1: ["Python", "C", "Java", "Django", "Node.js", "SQL", "MongoDB"],
-    row2: ["Pandas", "NumPy", "Matplotlib", "Figma", "Canva", "Wireframing"],
-    row3: [
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "React.js",
-      "Bootstrap 5",
-      "Git",
-      "GitHub",
-    ],
-  };
+  const skillCategories = [
+    {
+      title: "Programming Languages",
+      skills: ["Python", "C", "Java", "JavaScript", "Typescript"],
+    },
+    {
+      title: "Frontend Development",
+      skills: ["HTML5", "CSS3", "React.js", "Bootstrap 5", "React Native", "Tailwind CSS"],
+    },
+    {
+      title: "Backend Development",
+      skills: ["Node.js", "Django"],
+    },
+    {
+      title: "Databases",
+      skills: ["SQL", "MongoDB"],
+    },
+    {
+      title: "Data Science & ML",
+      skills: ["Pandas", "NumPy", "Matplotlib"],
+    },
+    {
+      title: "Tools & UI/UX",
+      skills: ["Git", "GitHub", "Figma", "Canva", "Wireframing", "Prototyping"],
+    },
+  ];
 
   return (
     <section id="skills" className="skills-section">
@@ -56,16 +38,35 @@ const Skills = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
           <h2>Technical Skills</h2>
           <p>Technologies I use to build robust applications.</p>
         </motion.div>
-      </div>
 
-      <div className="skills-marquee-wrapper">
-        <MarqueeRow items={skills.row1} direction="left" speed={30} />
-        <MarqueeRow items={skills.row2} direction="right" speed={35} />
-        <MarqueeRow items={skills.row3} direction="left" speed={40} />
+        <div className="skills-grid">
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              className="skill-category"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <h3>{category.title}</h3>
+              <div className="skills-wrapper">
+                {category.skills.map((skill, idx) => (
+                  <div key={idx} className="skill-item">
+                    <Link to={`/skill/${skill}`} className="skill-pill">
+                      {skill}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

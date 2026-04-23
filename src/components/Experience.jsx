@@ -18,23 +18,15 @@ const Experience = () => {
 
   const experiences = [
     {
-      company: "Tech Solutions Inc.",
-      role: "Machine Learning Intern",
-      duration: "June 2024 - Aug 2024",
+      company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
+      role: "Full Stack Developer Intern",
+      duration: "Recent - 5 Months",
       description: [
-        "Developed and trained a MobileNet model for image classification.",
-        "Preprocessed large datasets using Pandas and NumPy.",
-        "Collaborated with the backend team to integrate the model via REST API.",
-      ],
-    },
-    {
-      company: "WebDev Works",
-      role: "Frontend Developer Intern",
-      duration: "Jan 2024 - April 2024",
-      description: [
-        "Built responsive user interfaces using React and Tailwind CSS.",
-        "Optimized website performance, improving load times by 20%.",
-        "Implemented Redux for state management across the application.",
+        "Contributed to a real-world product, advancing from basic React knowledge to building complex features and mastering deeper concepts.",
+        "Integrated React Redux Toolkit for efficient state management, leading to cleaner and more maintainable code.",
+        "Focused on best practices: writing clean and readable code, maintaining proper folder structure, and keeping an organized codebase.",
+        "Gained exposure to client interactions, observing how projects evolve through continuous iterations to meet expectations.",
+        "Tech Stack: React.js, React Redux Toolkit, GitHub",
       ],
     },
   ];
