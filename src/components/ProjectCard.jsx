@@ -1,8 +1,10 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "../styles/Projects.css"; // Shared styles
 
 const ProjectCard = ({ project, index }) => {
+  const navigate = useNavigate();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -45,6 +47,7 @@ const ProjectCard = ({ project, index }) => {
   return (
     <motion.div
       className="project-card"
+      onClick={() => navigate(`/project/${project.id}`)}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -52,6 +55,7 @@ const ProjectCard = ({ project, index }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
+        cursor: "pointer",
         rotateX,
         rotateY,
         transformStyle: "preserve-3d",
@@ -81,6 +85,7 @@ const ProjectCard = ({ project, index }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-link"
+              onClick={(e) => e.stopPropagation()}
             >
               <FaExternalLinkAlt /> Live Demo
             </a>
@@ -91,6 +96,7 @@ const ProjectCard = ({ project, index }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-link"
+              onClick={(e) => e.stopPropagation()}
             >
               <FaGithub /> GitHub
             </a>

@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import SkillProjects from "./components/SkillProjects";
 import Workshops from "./components/Workshops";
+import ProjectDetails from "./components/ProjectDetails";
 
 function App() {
   const { mode } = useSelector((state) => state.theme);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/workshops" element={<Workshops />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
