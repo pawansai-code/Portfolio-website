@@ -18,11 +18,11 @@ const Skills = () => {
     },
     {
       title: "Databases",
-      skills: ["SQL", "MongoDB"],
+      skills: ["SQL", "MongoDB", "PostgreSQL"],
     },
     {
       title: "Data Science & ML",
-      skills: ["Pandas", "NumPy", "Matplotlib"],
+      skills: ["Pandas", "NumPy", "Matplotlib", "seaborn", "scikit-learn"],
     },
     {
       title: "Tools & UI/UX",
