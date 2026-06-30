@@ -52,8 +52,25 @@
 /* Timeline */
 .timeline {
   position: relative;
-  border-left: 2px solid var(--border-color);
   padding-left: 2rem;
+}
+
+.timeline-line-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.timeline-line-animated {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--primary-color);
 }
 
 .timeline-item {

@@ -2,8 +2,29 @@ import rsImg1 from '../assets/roadsos/WhatsApp Unknown 2026-06-10 at 3.07.27 PM/
 import rsImg2 from '../assets/roadsos/WhatsApp Unknown 2026-06-10 at 3.07.27 PM/image2.png';
 import rsImg3 from '../assets/roadsos/WhatsApp Unknown 2026-06-10 at 3.07.27 PM/image3.jpeg';
 import rsImg4 from '../assets/roadsos/WhatsApp Unknown 2026-06-10 at 3.07.27 PM/image4.jpeg';
+import codeLensDemo from '../assets/codelens/codelens-final.mp4';
+import codeLensImg1 from '../assets/codelens/postgre1.png';
+import codeLensImg2 from '../assets/codelens/postgre2.png';
+import codeLensImg3 from '../assets/codelens/pinecode.png';
 
 export const projectsData = [
+  {
+    id: "codelens",
+    title: "CodeLens",
+    description:
+      "An AI-powered code analysis and Retrieval-Augmented Generation (RAG) platform that allows developers to chat with GitHub repositories using natural language, providing highly accurate answers with exact file and line-number citations.",
+    longDescription:
+      "CodeLens is an AI-powered code analysis and Retrieval-Augmented Generation (RAG) platform that allows developers to input a GitHub repository URL and \"chat\" with that codebase using natural language. It features a 4-phase pipeline: Smart Ingestion & AST Parsing, Dual Storage (Pinecone for semantic search and PostgreSQL for exact keyword matching), Hybrid Retrieval & Reranking using Reciprocal Rank Fusion, and Answer Generation using a locally hosted LLM. The frontend is a modern React + Vite dashboard with split-pane design, interactive citations, and repository analytics.",
+    tech: ["React", "TypeScript", "FastAPI", "LangChain", "PostgreSQL", "Pinecone"],
+    role: "Full Stack Developer",
+    github: "https://github.com/pawansai-code/CODE-LENS",
+    demo: codeLensDemo,
+    images: [
+      codeLensImg1,
+      codeLensImg2,
+      codeLensImg3
+    ],
+  },
   {
     id: "road-sos",
     title: "Road-SOS",

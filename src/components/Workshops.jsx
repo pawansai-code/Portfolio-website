@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaArrowRight,
   FaCalendarAlt,
   FaChalkboardTeacher,
   FaUsers,
+  FaArrowLeft,
 } from "react-icons/fa";
 import "../styles/Workshops.css";
 
@@ -54,7 +56,21 @@ const Workshops = () => {
 
   return (
     <section className="workshops-page">
-      <div className="container">
+      <div className="container" style={{ paddingTop: "20px" }}>
+        <Link
+          to="/"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            marginBottom: "2rem",
+            color: "var(--primary-color)",
+            fontWeight: "600",
+            textDecoration: "none",
+          }}
+        >
+          <FaArrowLeft /> Back to Home
+        </Link>
         <motion.div
           className="workshops-header"
           initial={{ opacity: 0, y: 20 }}

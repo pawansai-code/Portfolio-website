@@ -18,6 +18,17 @@ const Experience = () => {
 
   const experiences = [
     {
+      company: "OneIntegral Technologies Pvt Ltd (Data Twin)",
+      role: "Trainee on Generative AI - Intern",
+      duration: "June 2026 (1 Month) | On-site, Chennai",
+      description: [
+        "Worked on a project adopting AI for Autonomous Data Processing & Reconciliation to automate financial operations.",
+        "Focused on core system architecture including data processing pipelines and embedding generation.",
+        "Gained practical experience working with local offline LLMs (Ollama) in experimental environments.",
+        "Tech Stack: RAG, Pinecone, LangChain, Ollama",
+      ],
+    },
+    {
       company: "SocialTek AI & ML Business Solutions Pvt Ltd (with Vyomenexgen)",
       role: "Full Stack Developer Intern",
       duration: "Recent - 5 Months",

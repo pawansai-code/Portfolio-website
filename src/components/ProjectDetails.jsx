@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaArrowLeft, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaArrowLeft, FaExternalLinkAlt, FaGithub, FaTimes } from "react-icons/fa";
 import { projectsData } from "../data/projectsData";
 import "../styles/ProjectDetails.css";
 
@@ -9,6 +9,7 @@ const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [project, setProject] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     // Scroll to top when component mounts
@@ -104,14 +105,31 @@ const ProjectDetails = () => {
             <h3>Project Gallery</h3>
             <div className="image-grid">
               {project.images.map((img, idx) => (
-                <div key={idx} className="image-wrapper">
+                <div 
+                  key={idx} 
+                  className="image-wrapper"
+                  onClick={() => setSelectedImage(img)}
+                  style={{ cursor: "pointer" }}
+                >
                   <img src={img} alt={`${project.title} preview ${idx + 1}`} />
                 </div>
               ))}
             </div>
           </motion.div>
         )}
+        )}
       </div>
+
+      {selectedImage && (
+        <div className="image-modal-overlay" onClick={() => setSelectedImage(null)}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal-btn" onClick={() => setSelectedImage(null)}>
+              <FaTimes />
+            </button>
+            <img src={selectedImage} alt="Full screen preview" />
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

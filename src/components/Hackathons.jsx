@@ -1,10 +1,12 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaCalendarAlt,
   FaChevronDown,
   FaChevronUp,
   FaTrophy,
+  FaArrowLeft,
 } from "react-icons/fa";
 import "../styles/Hackathons.css";
 
@@ -19,7 +21,7 @@ const Hackathons = () => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "center start"],
+    offset: ["start center", "end end"],
   });
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -72,7 +74,21 @@ const Hackathons = () => {
 
   return (
     <section className="hackathons-page" ref={ref}>
-      <div className="container">
+      <div className="container" style={{ paddingTop: "20px" }}>
+        <Link
+          to="/"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            marginBottom: "2rem",
+            color: "var(--primary-color)",
+            fontWeight: "600",
+            textDecoration: "none",
+          }}
+        >
+          <FaArrowLeft /> Back to Home
+        </Link>
         <motion.div
           className="hackathons-header-section"
           initial={{ opacity: 0, y: 20 }}

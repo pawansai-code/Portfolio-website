@@ -1,7 +1,39 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useRef } from "react";
 import "../styles/About.css";
 
 const About = () => {
+  const timelineVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
+  };
+
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"],
+  });
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   return (
     <section id="about" className="about">
       <div className="container about-container">
@@ -50,19 +82,35 @@ const About = () => {
 
           <motion.div
             className="timeline"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            variants={timelineVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            ref={timelineRef}
           >
-            <div className="timeline-item">
+            <div className="timeline-line-bg">
+              <motion.div className="timeline-line-animated" style={{ scaleY, transformOrigin: "top" }} />
+            </div>
+
+            <motion.div 
+              className="timeline-item"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02, originX: 0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <span className="year">Start</span>
               <div className="content">
                 <h3>The Dream</h3>
                 <p>Ignited passion for IT in 10th grade.</p>
               </div>
-            </div>
-            <div className="timeline-item">
+            </motion.div>
+            
+            <motion.div 
+              className="timeline-item"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02, originX: 0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <span className="year">College</span>
               <div className="content">
                 <h3>Machine Learning</h3>
@@ -71,14 +119,20 @@ const About = () => {
                   Services.
                 </p>
               </div>
-            </div>
-            <div className="timeline-item">
+            </motion.div>
+            
+            <motion.div 
+              className="timeline-item"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02, originX: 0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
               <span className="year">Now</span>
               <div className="content">
                 <h3>Full Stack Dev</h3>
                 <p>Building web apps and integrating AI.</p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

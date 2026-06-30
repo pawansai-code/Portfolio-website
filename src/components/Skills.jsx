@@ -22,13 +22,37 @@ const Skills = () => {
     },
     {
       title: "Data Science & ML",
-      skills: ["Pandas", "NumPy", "Matplotlib", "seaborn", "scikit-learn"],
+      skills: ["Pandas", "NumPy", "Matplotlib", "seaborn", "scikit-learn", "RAG"],
     },
     {
       title: "Tools & UI/UX",
       skills: ["Git", "GitHub", "Figma", "Canva", "Wireframing", "Prototyping"],
     },
   ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.8, y: 15 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 10,
+      },
+    },
+  };
 
   return (
     <section id="skills" className="skills-section">
@@ -49,19 +73,31 @@ const Skills = () => {
             <motion.div
               key={index}
               className="skill-category"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
             >
-              <h3>{category.title}</h3>
+              <h3>
+                {category.title}
+              </h3>
               <div className="skills-wrapper">
                 {category.skills.map((skill, idx) => (
-                  <div key={idx} className="skill-item">
-                    <Link to={`/skill/${skill}`} className="skill-pill">
-                      {skill}
-                    </Link>
-                  </div>
+                  <motion.div 
+                    key={idx} 
+                    className="skill-item"
+                    variants={itemVariants}
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1, y: -3 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                    >
+                      <Link to={`/skill/${skill}`} className="skill-pill">
+                        {skill}
+                      </Link>
+                    </motion.div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
