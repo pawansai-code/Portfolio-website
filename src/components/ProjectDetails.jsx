@@ -117,7 +117,6 @@ const ProjectDetails = () => {
             </div>
           </motion.div>
         )}
-        )}
       </div>
 
       {selectedImage && (

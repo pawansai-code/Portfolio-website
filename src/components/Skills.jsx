@@ -1,32 +1,74 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { 
+  FaPython, FaJava, FaHtml5, FaCss3Alt, FaReact, FaBootstrap, FaNodeJs, FaDatabase, 
+  FaChartBar, FaChartLine, FaBrain, FaGitAlt, FaGithub, FaFigma, FaPencilRuler, FaLayerGroup
+} from "react-icons/fa";
+import { 
+  SiC, SiJavascript, SiTypescript, SiTailwindcss, SiDjango, SiMongodb, SiPostgresql, 
+  SiPandas, SiNumpy, SiScikitlearn, SiCanva 
+} from "react-icons/si";
 import "../styles/Skills.css";
 
 const Skills = () => {
   const skillCategories = [
     {
       title: "Programming Languages",
-      skills: ["Python", "C", "Java", "JavaScript", "Typescript"],
+      skills: [
+        { name: "Python", icon: <FaPython color="#3776AB" /> },
+        { name: "C", icon: <SiC color="#A8B9CC" /> },
+        { name: "Java", icon: <FaJava color="#ED8B00" /> },
+        { name: "JavaScript", icon: <SiJavascript color="#F7DF1E" /> },
+        { name: "Typescript", icon: <SiTypescript color="#3178C6" /> },
+      ],
     },
     {
       title: "Frontend Development",
-      skills: ["HTML5", "CSS3", "React.js", "Bootstrap 5", "React Native", "Tailwind CSS"],
+      skills: [
+        { name: "HTML5", icon: <FaHtml5 color="#E34F26" /> },
+        { name: "CSS3", icon: <FaCss3Alt color="#1572B6" /> },
+        { name: "React.js", icon: <FaReact color="#61DAFB" /> },
+        { name: "Bootstrap 5", icon: <FaBootstrap color="#7952B3" /> },
+        { name: "React Native", icon: <FaReact color="#61DAFB" /> },
+        { name: "Tailwind CSS", icon: <SiTailwindcss color="#06B6D4" /> },
+      ],
     },
     {
       title: "Backend Development",
-      skills: ["Node.js", "Django"],
+      skills: [
+        { name: "Node.js", icon: <FaNodeJs color="#339933" /> },
+        { name: "Django", icon: <SiDjango color="#092E20" /> },
+      ],
     },
     {
       title: "Databases",
-      skills: ["SQL", "MongoDB", "PostgreSQL"],
+      skills: [
+        { name: "SQL", icon: <FaDatabase color="#336791" /> },
+        { name: "MongoDB", icon: <SiMongodb color="#47A248" /> },
+        { name: "PostgreSQL", icon: <SiPostgresql color="#4169E1" /> },
+      ],
     },
     {
       title: "Data Science & ML",
-      skills: ["Pandas", "NumPy", "Matplotlib", "seaborn", "scikit-learn", "RAG"],
+      skills: [
+        { name: "Pandas", icon: <SiPandas color="#150458" /> },
+        { name: "NumPy", icon: <SiNumpy color="#013243" /> },
+        { name: "Matplotlib", icon: <FaChartBar color="#11557c" /> },
+        { name: "seaborn", icon: <FaChartLine color="#4C72B0" /> },
+        { name: "scikit-learn", icon: <SiScikitlearn color="#F7931E" /> },
+        { name: "RAG", icon: <FaBrain color="#A020F0" /> },
+      ],
     },
     {
       title: "Tools & UI/UX",
-      skills: ["Git", "GitHub", "Figma", "Canva", "Wireframing", "Prototyping"],
+      skills: [
+        { name: "Git", icon: <FaGitAlt color="#F05032" /> },
+        { name: "GitHub", icon: <FaGithub color="var(--text-color)" /> },
+        { name: "Figma", icon: <FaFigma color="#F24E1E" /> },
+        { name: "Canva", icon: <SiCanva color="#00C4CC" /> },
+        { name: "Wireframing", icon: <FaPencilRuler color="#555555" /> },
+        { name: "Prototyping", icon: <FaLayerGroup color="#007BFF" /> },
+      ],
     },
   ];
 
@@ -93,8 +135,9 @@ const Skills = () => {
                       whileTap={{ scale: 0.95 }}
                       transition={{ type: "spring", stiffness: 300, damping: 10 }}
                     >
-                      <Link to={`/skill/${skill}`} className="skill-pill">
-                        {skill}
+                      <Link to={`/skill/${skill.name}`} className="skill-pill">
+                        <span className="skill-icon">{skill.icon}</span>
+                        {skill.name}
                       </Link>
                     </motion.div>
                   </motion.div>
