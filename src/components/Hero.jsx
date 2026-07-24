@@ -4,7 +4,7 @@ import profileImg from "../assets/profile pic.jpeg";
 import "../styles/Hero.css";
 
 const Hero = () => {
-  const letters = "PAWANSAI G".split("");
+  const letters = "PAWANSAI GOPI".split("");
   const roles = ["FullStack Developer", "Creative Problem Solver", "UI/UX Enthusiast", "Tech Innovator"];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
@@ -54,9 +54,13 @@ const Hero = () => {
             animate="visible"
           >
             {letters.map((char, index) => (
-              <motion.span key={index} variants={letterVariants}>
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
+              char === " " ? (
+                <br key={index} />
+              ) : (
+                <motion.span key={index} variants={letterVariants}>
+                  {char}
+                </motion.span>
+              )
             ))}
           </motion.h1>
 

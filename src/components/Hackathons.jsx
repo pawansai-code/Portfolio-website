@@ -1,5 +1,5 @@
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaCalendarAlt,
@@ -7,6 +7,8 @@ import {
   FaChevronUp,
   FaTrophy,
   FaArrowLeft,
+  FaExternalLinkAlt,
+  FaTimes
 } from "react-icons/fa";
 import "../styles/Hackathons.css";
 
@@ -17,22 +19,24 @@ import sriramImg from "../assets/sriram college .jpg";
 import codaethonImg from "../assets/codaethon.jpeg";
 
 const Hackathons = () => {
-  const containerRef = useRef(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end end"],
-  });
-  
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const toggleExpand = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const openPreview = (imgSrc) => {
+    setPreviewImage(imgSrc);
+    // Prevent scrolling when modal is open
+    document.body.style.overflow = "hidden";
+  };
+
+  const closePreview = () => {
+    setPreviewImage(null);
+    // Restore scrolling
+    document.body.style.overflow = "auto";
   };
 
   const hackathons = [
@@ -78,87 +82,178 @@ const Hackathons = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 60, damping: 20 }
+    }
+  };
+
   return (
-    <section className="hackathons-page" ref={containerRef}>
+    <section className="hackathons-page">
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {previewImage && (
+          <motion.div 
+            className="image-lightbox-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closePreview}
+          >
+            <button className="lightbox-close-btn" onClick={closePreview}>
+              <FaTimes />
+            </button>
+            <motion.img 
+              src={previewImage} 
+              alt="Preview" 
+              className="lightbox-content"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              onClick={(e) => e.stopPropagation()} 
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="container" style={{ paddingTop: "20px" }}>
         <Link to="/" className="back-btn">
           <FaArrowLeft /> Back to Home
         </Link>
         <motion.div
           className="hackathons-header-section"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h2>Hackathon Journey </h2>
+          <h2 className="glitch-text">Hackathon Journey</h2>
           <p>Innovating and competing at the highest levels.</p>
         </motion.div>
 
-        <div className="journey-container">
-          {/* Glowing Central Line */}
-          <div className="journey-line-bg">
-            <motion.div
-              className="journey-line-glow"
-              style={{ scaleY, transformOrigin: "top" }}
-            />
-          </div>
-
+        <motion.div 
+          className="hackathons-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {hackathons.map((h, index) => {
             const isExpanded = expandedIndex === index;
-            const isEven = index % 2 === 0;
+            const isHovered = hoveredIndex === index;
 
             return (
-              <div key={index} className={`journey-item ${isEven ? "left" : "right"}`}>
-                <motion.div
-                  className="journey-card"
-                  initial={{ opacity: 0, x: isEven ? -100 : 100, rotateY: isEven ? 15 : -15, scale: 0.8 }}
-                  whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.1 }}
+              <motion.div
+                key={index}
+                className={`journey-card ${isExpanded ? "expanded" : ""}`}
+                variants={cardVariants}
+                onHoverStart={() => setHoveredIndex(index)}
+                onHoverEnd={() => setHoveredIndex(null)}
+                whileHover={{ y: -8, boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.25)" }}
+              >
+                <div 
+                  className="journey-card-image previewable" 
+                  onClick={() => openPreview(h.image)}
                 >
-                  <div className="journey-dot"></div>
-                  
-                  <div className="journey-card-image">
-                    <img src={h.image} alt={h.title} />
-                    <div className="journey-achievement-badge">
-                      <FaTrophy /> {h.achievement}
-                    </div>
+                  <img src={h.image} alt={h.title} />
+                  <div className="image-overlay">
+                    <span className="preview-text">Click to preview</span>
                   </div>
+                  <motion.div 
+                    className="journey-achievement-badge"
+                    whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <FaTrophy className="trophy-icon" /> <span>{h.achievement}</span>
+                  </motion.div>
+                </div>
 
-                  <div className="journey-card-content">
+                <div className="journey-card-content">
+                  <div className="journey-card-header">
                     <h3>{h.title}</h3>
                     <div className="journey-date">
-                      <FaCalendarAlt /> {h.date}
+                      <FaCalendarAlt className="date-icon" /> {h.date}
                     </div>
+                  </div>
+                  
+                  <motion.div layout className="journey-desc-container">
+                    <p className="journey-desc">
+                      {h.description}
+                    </p>
                     
-                    <motion.div layout className="journey-desc-container">
-                      <p className="journey-desc">
-                        {isExpanded ? h.fullDetails : h.description}
-                      </p>
-                    </motion.div>
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                          animate={{ opacity: 1, height: "auto", marginTop: 15 }}
+                          exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="expanded-content"
+                        >
+                          <div className="divider" />
+                          <p className="journey-full-details">{h.fullDetails}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
 
-                    <div className="journey-tags">
-                      {h.tags.map((tag, i) => (
-                        <span key={i} className="tech-tag">{tag}</span>
-                      ))}
-                    </div>
+                  <div className="journey-tags">
+                    {h.tags.map((tag, i) => (
+                      <motion.span 
+                        key={i} 
+                        className="tech-tag"
+                        whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.2)" }}
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
 
+                  <div className="card-actions">
                     <button
                       className="view-more-btn"
                       onClick={() => toggleExpand(index)}
                     >
                       {isExpanded ? (
-                        <>Show Less <FaChevronUp /></>
+                        <>Show Less <FaChevronUp className="btn-icon" /></>
                       ) : (
-                        <>Explore Details <FaChevronDown /></>
+                        <>Explore Details <FaChevronDown className="btn-icon" /></>
                       )}
                     </button>
+                    
+                    {isExpanded && (
+                      <motion.button 
+                        className="external-link-btn"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <FaExternalLinkAlt />
+                      </motion.button>
+                    )}
                   </div>
-                </motion.div>
-              </div>
+                </div>
+                
+                {/* Decorative corner accents */}
+                <div className="corner-accent top-right" />
+                <div className="corner-accent bottom-left" />
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
