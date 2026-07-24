@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import profileImg from "../assets/profile pic.jpeg";
 import "../styles/Hero.css";
 
@@ -28,36 +28,8 @@ const Hero = () => {
     visible: { opacity: 1, y: 0, rotateX: 0, transition: { type: "spring", damping: 12, stiffness: 200 } },
   };
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    
-    const x = (clientX / innerWidth) - 0.5;
-    const y = (clientY / innerHeight) - 0.5;
-    
-    mouseX.set(x);
-    mouseY.set(y);
-    
-    const heroSection = document.getElementById("hero");
-    if (heroSection) {
-      heroSection.style.setProperty('--mouse-x', `${clientX}px`);
-      heroSection.style.setProperty('--mouse-y', `${clientY}px`);
-    }
-  };
-
-  const springConfig = { damping: 20, stiffness: 150 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-
-  const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], [15, -15]);
-  const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], [-15, 15]);
-
   return (
-    <section id="hero" className="hero" onMouseMove={handleMouseMove}>
-      <div className="spotlight"></div>
+    <section id="hero" className="hero">
       
       <div className="container hero-container">
         <motion.div
@@ -129,7 +101,7 @@ const Hero = () => {
         >
           <motion.div
             className="img-3d-wrapper"
-            style={{ rotateX, rotateY, perspective: 1000 }}
+            style={{ perspective: 1000 }}
           >
             <div className="img-glow-layer"></div>
             <img src={profileImg} alt="Pawan Sai G" className="profile-img-3d" />
@@ -141,36 +113,10 @@ const Hero = () => {
 };
 
 const MagneticButton = ({ className, text, link }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const ref = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    
-    const pullX = (e.clientX - centerX) * 0.3;
-    const pullY = (e.clientY - centerY) * 0.3;
-    
-    x.set(pullX);
-    y.set(pullY);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
     <motion.a
-      ref={ref}
       href={link}
       className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x, y }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
     >
