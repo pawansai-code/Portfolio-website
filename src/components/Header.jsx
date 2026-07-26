@@ -77,11 +77,6 @@ const Header = () => {
                 )}
               </li>
             ))}
-            <li>
-              <Link to="/blog" onClick={() => setIsMenuOpen(false)}>
-                Blog
-              </Link>
-            </li>
           </ul>
           <a
             href={resumePdf}

@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Background from "./components/Background";
-import Blog from "./components/Blog";
 import Hackathons from "./components/Hackathons";
 import Header from "./components/Header";
 import Home from "./components/Home";
@@ -26,7 +25,6 @@ function App() {
         <Route path="/skill/:skillName" element={<SkillProjects />} />
         <Route path="/hackathons" element={<Hackathons />} />
         <Route path="/workshops" element={<Workshops />} />
-        <Route path="/blog" element={<Blog />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
