@@ -92,7 +92,7 @@ const About = () => {
               <motion.div className="timeline-line-animated" style={{ scaleY, transformOrigin: "top" }} />
             </div>
 
-            <motion.div 
+            <motion.div
               className="timeline-item"
               variants={itemVariants}
               whileHover={{ scale: 1.02, originX: 0 }}
@@ -104,8 +104,8 @@ const About = () => {
                 <p>Ignited passion for IT in 10th grade.</p>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="timeline-item"
               variants={itemVariants}
               whileHover={{ scale: 1.02, originX: 0 }}
@@ -120,8 +120,8 @@ const About = () => {
                 </p>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="timeline-item"
               variants={itemVariants}
               whileHover={{ scale: 1.02, originX: 0 }}
