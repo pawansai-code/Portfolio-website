@@ -44,21 +44,6 @@ export const projectsData = [
     ],
   },
   {
-    id: "encom",
-    title: "ENCOM: AI-Driven Gamified Learning and Networking System",
-    description:
-      "Developed a comprehensive educational hub integrating a Meta LLaMA 3.3-powered AI assistant via Groq API, gamified cognitive challenges (Chess), and a personal journaling system. Engineered a secure hybrid architecture using Firebase for role-based authentication and real-time data persistence, alongside an Express.js backend for protected AI proxying. Implemented an XP-based achievement system and dual-role dashboards to drive student engagement and administrative efficiency.",
-    longDescription:
-      "Developed a comprehensive educational hub integrating a Meta LLaMA 3.3-powered AI assistant via Groq API, gamified cognitive challenges (Chess), and a personal journaling system. Engineered a secure hybrid architecture using Firebase for role-based authentication and real-time data persistence, alongside an Express.js backend for protected AI proxying. Implemented an XP-based achievement system and dual-role dashboards to drive student engagement and administrative efficiency. The platform provides a dynamic and interactive learning environment tailored for modern educational needs.",
-    tech: ["React.js", "Express.js", "Firebase", "Groq API", "Redux", "Socket.io"],
-    role: "Full Stack Developer",
-    github: "https://github.com/pawansai-code",
-    demo: null,
-    images: [
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop"
-    ],
-  },
-  {
     id: "smart-crop",
     title: "Smart Crop Advisory System",
     description:
